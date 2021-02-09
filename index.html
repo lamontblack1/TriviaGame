@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body background="./assets/images/bodyBackground.jpg">
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-12 pb-4">
-                <h1 class="display-3">
+                <h1 class="display-3 text-center">
                     <strong>
                         Trivia Night 
                         <span class="text-muted">Test Your Knowledge</span>
@@ -20,19 +20,65 @@
                 </h1>
                 
             </div>
-            <div class="col-3"></div>
-                <div class="col-6 btn btn-lg btn-block mx-auto py-5">
-                    <button type="button" class="btn btn-info btn-lg btn-block"><h2 class="display-5">Start</h2> </button>
+            <div class="col-2"></div>
+                <div id="displayQuestions" class="col-8 btn btn-lg btn-block mx-auto py-5">
+                    <button id="startButton" type="button" class="btn btn-info btn-lg btn-block"><h2 class="display-5">Start</h2> </button>
                 </div>
-            <div class="col-3"></div>
+            <div class="col-2"></div>
         </div>
         <!-- <div class="row"> -->
         <!-- </div> -->
     </div>
         
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+        // The array of questions for our quiz game. The first answer is the correct one
+        let questions = [
+            { q: "'Katniss Everdeen' takes her sister's place in the 'Hunger Games'. Which district does she represent?",
+                a1: "12", a2: "6", a3: "3", a4: "7" },
+            { q: "Where was American television presenter and tabloid talk show host Jerry Springer born?", 
+                a1: "A subway", a2: "An ocean liner", a3: "A shopping mall", a4: "A plane" },
+            { q: "Which planet in our solar system spins the fastest?", 
+                a1: "Jupiter", a2: "Mercury", a3: "Neptune", a4: "Earth" },
+            { q: "Which of the following James Bond films was the first to be released?", 
+                a1: "From Russia With Love", a2: "You Only Live Twice", a3: "Thunderball", a4: "Goldfinger" },
+            { q: "Useful for calculating internet speed and bandwidth, how many megabits are there in a megabyte?", 
+                a1: "Eight", a2: "Six", a3: "Sixteen", a4: "Twelve" }
+        ];
 
+        let numberOfQuestions = questions.length
+        let currentQuestionIndex = 0
+
+
+
+
+$("#startButton").on("click", function() {
+    startNewQuestion();
+});
+
+function startNewQuestion() {
+// Get rid of the start button and add the elements for the display,
+// First the time remaining div, the question, then loop to create the answer buttons
+    let displayQuestionsDiv = $("#displayQuestions");
+    displayQuestionsDiv.empty()
+    let newDiv = $("<div>");
+    newDiv.html("<h1>Time Remaining: </h1><h1 id = 'timeRemainingText' class = 'mb-4'></h1>");
+    displayQuestionsDiv.append(newDiv);
+
+    newDiv = $("<div>");
+    newDiv.html("<h2 id = 'questionText' class = 'text-center mb-4'></h2>");
+    displayQuestionsDiv.append(newDiv);
+    $("#questionText").text(questions[currentQuestionIndex].q)
+
+
+
+ for (let i = 0; i < 4; i++) {
+     newDiv = $("<div>");
+     newDiv.attr("class","col-12 btn btn-info btn-lg btn-block mx-auto my-3 py-2");
+     newDiv.text("Button " + i);
+     displayQuestionsDiv.append(newDiv)
+ }
+}
     </script>
 </body>
 </html>
