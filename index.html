@@ -45,8 +45,8 @@
             { q: "Useful for calculating internet speed and bandwidth, how many megabits are there in a megabyte?", 
                 a1: "Eight", a2: "Six", a3: "Sixteen", a4: "Twelve" }
         ];
-        let sortingArray = [1,2,3,4]
-        let numberOfQuestions = questions.length
+        const sortingArray = [1,2,3,4]
+        const numberOfQuestions = questions.length
         let currentQuestionIndex = 0
 
 
@@ -57,34 +57,37 @@ $("#startButton").on("click", function() {
 });
 
 function startNewQuestion() {
-// Get rid of the start button and add the elements for the display,
-// First the time remaining div, the question, then loop to create the answer buttons
+    // Get rid of the start button and add the elements for the display,
+    // First the time remaining div, the question, then loop to create the answer buttons
     let displayQuestionsDiv = $("#displayQuestions");
     displayQuestionsDiv.empty()
     let newDiv = $("<div>");
     newDiv.html("<h1>Time Remaining: </h1><h1 id = 'timeRemainingText' class = 'mb-4'></h1>");
     displayQuestionsDiv.append(newDiv);
-
+    
+    // Now assign new div with question info
     newDiv = $("<div>");
     newDiv.html("<h2 id = 'questionText' class = 'text-center mb-4'></h2>");
     displayQuestionsDiv.append(newDiv);
     $("#questionText").text(questions[currentQuestionIndex].q)
 
-    // Randomize the order of the answers since first question in array is the correct answer
-    sortingArray.sort(function() {
+        // Randomize the order of the answers since first question in array is the correct answer
+        sortingArray.sort(function() {
           return 0.5 - Math.random();
         });
-        
-    // Create and append the answer buttons, give it the id of the answer so we know correct answer
-    for (let i = 0; i < 4; i++) {
-        let questionNumber = "a" + sortingArray[i]
-        newDiv = $("<div>");
-        newDiv.attr("class","col-12 btn btn-info btn-lg btn-block mx-auto my-3 py-2 answer=button");
-        newDiv.attr("id",questionNumber)
-        let thisQuestion = questions[currentQuestionIndex][questionNumber]
-        newDiv.text(thisQuestion);
-        displayQuestionsDiv.append(newDiv)
-    }
+
+        // Create and append the answer buttons (bootstrap divs), give each the id of the answer so we know correct answer, a1 is correct answer
+        for (let i = 0; i < 4; i++) {
+            let questionNumber = "a" + sortingArray[i]
+            newDiv = $("<div>");
+                // button is full width since parent is col-8, allows for answer to fit in button
+            newDiv.attr("class","col-12 btn btn-info btn-lg btn-block mx-auto my-3 py-2 answer=button");
+            newDiv.attr("id",questionNumber)
+            let thisQuestion = questions[currentQuestionIndex][questionNumber]
+            newDiv.text(thisQuestion);
+            displayQuestionsDiv.append(newDiv)
+        }
+    // Start countdown timer here?
 }
     </script>
 </body>
