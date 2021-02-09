@@ -71,7 +71,7 @@ function startNewQuestion() {
     displayQuestionsDiv.append(newDiv);
     $("#questionText").text(questions[currentQuestionIndex].q)
 
-        // Randomize the order of the answers since first question in array is the correct answer
+        // Randomize the order of the answers since first question in array is the correct answer, a1
         sortingArray.sort(function() {
           return 0.5 - Math.random();
         });
